@@ -1,0 +1,100 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Testing
+coverage/
+*.cover
+.coverage
+.hypothesis/
+.pytest_cache/
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+.next/
+.svelte-kit/
+
+# Environment variables
+.env
+.env.local
+.env*.local
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# AWS
+.aws/
+cdk.out/
+*.pem
+*.key
+
+# Secrets
+secrets/
+credentials.json
+service-account-key.json
+.secrets
+
+# Temporary
+.temp/
+tmp/
+*.tmp
+
+# Initialization scripts (don't copy to new projects)
+# These are excluded by init-project.sh
+# init-project.sh
+# init-project.ps1
+
+# Generated files (will be created by builder)
+apps/
+infrastructure/
+deployment/
+
+# Generated during build process
+research/*
+!research/README.md
+architecture/*
+!architecture/README.md
+specs/*
+!specs/README.md
+!specs/phases/
+
+# Keep .exon directory structure
+!.exon/
+!.exon/standards/
+!.exon/stacks/
+!.exon/config/
+!.exon/phases/
+
+# But ignore logs and checkpoints in .exon
+.exon/logs/
+.exon/phases/checkpoints/

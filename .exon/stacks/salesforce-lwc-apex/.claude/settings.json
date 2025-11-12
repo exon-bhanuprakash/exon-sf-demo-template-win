@@ -1,0 +1,20 @@
+{
+  "mcpServers": {},
+  "allowedTools": [
+    "Read",
+    "Write",
+    "Edit",
+    "Glob",
+    "Grep",
+    "Bash"
+  ],
+  "defaultContext": [
+    "Use Salesforce CLI (sf commands) for all Salesforce operations",
+    "Deploy with: sf project deploy start",
+    "Apex classes use PascalCase, LWC components use camelCase",
+    "Always use 'with sharing' for Apex classes unless explicitly needed",
+    "Use bind variables in SOQL to prevent injection",
+    "Design for bulk operations (200+ records)",
+    "Platform-native development - leverage Salesforce capabilities"
+  ]
+}

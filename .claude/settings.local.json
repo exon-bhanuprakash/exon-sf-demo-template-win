@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell.exe -Command \"Get-Content ''start.ps1'' -TotalCount 25 | Select-Object -Last 3\")",
+      "Bash(python -m venv:*)",
+      "Bash(./venv/Scripts/pip.exe install:*)",
+      "Bash(./resume.sh:*)",
+      "Bash(PYTHONIOENCODING=utf-8 echo:*)",
+      "Bash(where claude:*)",
+      "Bash(claude --version:*)",
+      "Bash(cat:*)",
+      "Bash(python:*)",
+      "Bash(STATE_FILE=\"/c/MyworkSpace/ExonSalesforce/exon-tech-sf-demo/.exon/phases/state.json\")",
+      "Bash(./venv/Scripts/pip show:*)",
+      "Bash(./venv/Scripts/python:*)",
+      "Bash(timeout 10 ./resume.sh:*)",
+      "Bash(timeout 30 ./venv/Scripts/python:*)",
+      "Bash(./venv/Scripts/pip:*)",
+      "Bash(git restore:*)",
+      "Bash(git reset:*)",
+      "Bash(timeout:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

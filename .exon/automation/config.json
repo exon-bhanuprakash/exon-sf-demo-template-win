@@ -1,0 +1,76 @@
+{
+  "project_name": "{{PROJECT_NAME}}",
+  "project_type": "{{PROJECT_TYPE}}",
+
+  "source_docs": {
+    "app_details": "{{APP_DETAILS_PATH}}",
+    "constitution": ".exon/constitution.md"
+  },
+
+  "working_directory": "{{WORKING_DIRECTORY}}",
+
+  "claude_agent": {
+    "permission_mode": "bypassPermissions",
+    "setting_sources": ["project"]
+  },
+
+  "error_handling": {
+    "max_retries": 5,
+    "retry_delay_seconds": 10,
+    "manual_resume_on_failure": true
+  },
+
+  "git": {
+    "create_branches": true,
+    "auto_commit": true,
+    "branch_prefix": "phase",
+    "main_branch": "main"
+  },
+
+  "phases": {
+    "1_deep_research": {
+      "name": "Deep Research",
+      "outputs": [
+        ".exon/research/domain_analysis.md",
+        ".exon/research/best_practices.md",
+        ".exon/research/competitive_analysis.md"
+      ]
+    },
+    "2_requirements": {
+      "name": "Requirements & Feature Breakdown",
+      "outputs": [
+        ".exon/specs/requirements.json",
+        ".exon/specs/features.csv",
+        ".exon/specs/user_stories.md"
+      ]
+    },
+    "3_mvp_phasing": {
+      "name": "MVP Phasing",
+      "outputs": [
+        ".exon/specs/phases/phase_1_core.json",
+        ".exon/specs/phases/phase_2_extended.json",
+        ".exon/specs/phases/phase_3_advanced.json",
+        ".exon/specs/mvp_roadmap.md"
+      ]
+    },
+    "4_implementation": {
+      "name": "Implementation",
+      "sub_phases": [
+        "models",
+        "schemas",
+        "routers",
+        "frontend",
+        "tests"
+      ]
+    }
+  },
+
+  "logging": {
+    "detailed_log": ".exon/logs/automation_{timestamp}.log",
+    "conversation_log": ".exon/logs/conversation_{timestamp}.log",
+    "summary_log": ".exon/logs/summary_{timestamp}.log"
+  },
+
+  "state_file": ".exon/automation/state.json",
+  "checkpoint_dir": ".exon/automation/checkpoints"
+}

@@ -1,0 +1,24 @@
+{
+  "current_phase": null,
+  "current_sub_phase": null,
+  "completed_phases": [],
+  "phase_status": {
+    "1_research": "pending",
+    "2_architecture": "pending",
+    "3_implementation": "pending",
+    "4_testing": "pending",
+    "5_deployment": "pending"
+  },
+  "start_time": null,
+  "last_update": null,
+  "total_duration_minutes": 0,
+  "can_resume": false,
+  "last_checkpoint": null,
+  "errors": [],
+  "warnings": [],
+  "metadata": {
+    "builder_version": "1.0.0",
+    "claude_sdk_version": null,
+    "stack_template": null
+  }
+}

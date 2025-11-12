@@ -1,0 +1,295 @@
+# {{PROJECT_NAME}} - Project Context & Progress
+
+**Last Updated**: {{LAST_UPDATED}}
+
+## 📊 Build Status
+
+- **Current Phase**: {{CURRENT_PHASE}}
+- **Build Started**: {{BUILD_STARTED}}
+- **Next Action**: {{NEXT_ACTION}}
+
+## 🎯 Current TODOs
+
+### ✅ Phase 0: Configuration & Setup ({{PHASE0_STATUS}})
+- [ ] Validate AWS credentials (run: aws sts get-caller-identity)
+- [ ] Create .exon/config/aws-config.json with validated config
+- [ ] Create .exon/config/environments.json with environment settings
+- [ ] Create .exon/logs/preflight-check.log with validation results
+
+### 📋 Phase 1: Module Breakdown, Research & Implementation Planning ({{PHASE1_STATUS}})
+
+#### Step 1: Module & Feature Breakdown
+- [ ] Analyze user-provided overview and identify all logical modules (8-15 modules)
+- [ ] List all features per module (5-20 features per module)
+- [ ] Assign priorities to each feature: Critical (MVP), Medium (Phase 2), Low (Phase 3)
+- [ ] Document rationale for priority assignments
+- [ ] Write research/module_breakdown.md (complete breakdown with priorities)
+
+#### Step 2: Business Domain Research
+- [ ] Analyze business domain and target user workflows
+- [ ] Research competitors and industry best practices
+- [ ] Document user journeys for Critical features only
+- [ ] Write research/domain_analysis.md (domain analysis focused on MVP)
+
+#### Step 3: Frontend Architecture Research
+- [ ] Research SvelteKit best practices for this application type
+- [ ] Design reusable component architecture (atoms, molecules, organisms)
+- [ ] Research PWA implementation (service workers, offline, installability)
+- [ ] Design mobile-first responsive patterns
+- [ ] Plan state management strategy (Svelte stores)
+- [ ] Write research/frontend_architecture.md (component architecture and PWA plan)
+
+#### Step 4: Critical Feature Deep Research
+- [ ] For EACH Critical feature: Research best implementation approaches
+- [ ] For EACH Critical feature: Break down into 5-15 detailed TODOs
+- [ ] For EACH Critical feature: Identify required components (Svelte + backend)
+- [ ] For EACH Critical feature: Document data flow
+- [ ] For EACH Critical feature: Estimate complexity and time
+- [ ] Write research/mvp_features.md (deep research on Critical features only)
+
+#### Step 5: Backend Architecture Research
+- [ ] Design DynamoDB single-table schema for all modules
+- [ ] Plan Lambda function structure and organization
+- [ ] List all API endpoints (Critical + Medium + Low for documentation)
+- [ ] Design Cognito authentication flow
+- [ ] Write research/backend_architecture.md (DynamoDB schema, Lambda structure, API list)
+
+#### Step 6: Implementation Planning
+- [ ] Create MVP plan: Critical features to implement NOW
+- [ ] Create Post-MVP plan: Medium features (documented, NOT implemented)
+- [ ] Create Future plan: Low features (documented, NOT implemented)
+- [ ] Estimate complexity for each feature (NOT timelines)
+- [ ] Write research/implementation_plan.md (priority-based plan, NO timelines)
+
+#### Step 7: Cost Analysis
+- [ ] Calculate monthly costs for MVP deployment
+- [ ] Identify cost optimization opportunities
+- [ ] Write research/cost_analysis.md (MVP cost breakdown)
+
+### 🏗️ Phase 2: Architecture Design ({{PHASE2_STATUS}})
+- [ ] Design complete system architecture (components, layers, data flow, communication patterns)
+- [ ] Create complete API specification (all endpoints, methods, request/response schemas)
+- [ ] Design database schema (tables/collections, fields, relationships, indexes, access patterns)
+- [ ] Plan AWS infrastructure (resources, networking, security, monitoring)
+- [ ] Define deployment architecture (environments, CI/CD flow)
+- [ ] Write architecture/system-architecture.md (complete system design with mermaid diagrams)
+- [ ] Write architecture/api-specification.md (all API endpoints with full details)
+- [ ] Write architecture/database-schema.md (complete schema with DynamoDB access patterns)
+- [ ] Write architecture/infrastructure-plan.md (AWS resources and networking)
+- [ ] Create specs/api-contracts.json (JSON schema for all API endpoints)
+- [ ] Create specs/database-schema.json (JSON representation of database schema)
+
+### 💻 Phase 3: MVP Code Generation - Critical Features Only ({{PHASE3_STATUS}})
+
+**IMPORTANT**: Implement ONLY Critical priority features from research/implementation_plan.md
+Medium and Low priority features: Create placeholder structure but NO implementation
+
+#### Infrastructure (CDK)
+- [ ] Create infrastructure/lib/database-stack.ts (DynamoDB tables, indexes, TTL)
+- [ ] Create infrastructure/lib/auth-stack.ts (AWS Cognito user pool, app client, groups)
+- [ ] Create infrastructure/lib/api-node-stack.ts (Node.js Lambda functions, layers)
+- [ ] Create infrastructure/lib/api-python-stack.ts (Python Lambda functions - if hybrid)
+- [ ] Create infrastructure/lib/api-gateway-stack.ts (API Gateway, routes, authorizers, CORS)
+- [ ] Create infrastructure/lib/frontend-stack.ts (S3 bucket, CloudFront distribution)
+- [ ] Create infrastructure/bin/app.ts (CDK app entry point, stack orchestration)
+- [ ] Create infrastructure/cdk.json, package.json, tsconfig.json
+
+#### Shared Code
+- [ ] Create shared/types/*.ts (TypeScript interfaces matching database schema)
+- [ ] Create shared/utils/*.ts (common utilities, helpers)
+- [ ] Create shared/constants.ts (app-wide constants)
+
+#### Backend - Node.js
+- [ ] Create backend/nodejs/src/repositories/*.ts (DynamoDB repository classes)
+- [ ] Create backend/nodejs/src/services/*.ts (business logic services)
+- [ ] Create backend/nodejs/src/functions/*.ts (Lambda function handlers)
+- [ ] Create backend/nodejs/src/middleware/*.ts (auth, validation, error handling, logging)
+- [ ] Create backend/nodejs/src/utils/*.ts (helpers, formatters)
+- [ ] Create backend/nodejs/package.json, tsconfig.json
+- [ ] Create backend/nodejs/tests/**/*.test.ts (comprehensive unit tests)
+
+#### Backend - Python (if hybrid)
+- [ ] Create backend/python/src/repositories/*.py (DynamoDB repository classes)
+- [ ] Create backend/python/src/services/*.py (business logic for analytics/ML)
+- [ ] Create backend/python/src/functions/*.py (Lambda function handlers)
+- [ ] Create backend/python/src/utils/*.py (helpers, formatters)
+- [ ] Create backend/python/requirements.txt
+- [ ] Create backend/python/tests/**/*.py (comprehensive unit tests)
+
+#### Frontend - SvelteKit
+- [ ] Create apps/web/src/routes/+page.svelte (home page)
+- [ ] Create apps/web/src/routes/+layout.svelte (app layout, navigation)
+- [ ] Create apps/web/src/routes/auth/*.svelte (login, register, forgot password)
+- [ ] Create apps/web/src/routes/dashboard/*.svelte (dashboard pages)
+- [ ] Create apps/web/src/routes/[feature]/*.svelte (feature-specific pages per requirements)
+- [ ] Create apps/web/src/lib/components/*.svelte (reusable UI components)
+- [ ] Create apps/web/src/lib/stores/*.ts (Svelte stores for state management)
+- [ ] Create apps/web/src/lib/api/*.ts (API client functions, HTTP layer)
+- [ ] Create apps/web/src/lib/types/*.ts (TypeScript types, interfaces)
+- [ ] Create apps/web/src/lib/utils/*.ts (utility functions, formatters)
+- [ ] Create apps/web/package.json, svelte.config.js, tsconfig.json, vite.config.ts
+- [ ] Create apps/web/tests/**/*.test.ts (component and integration tests)
+
+#### Documentation & Config
+- [ ] Create root package.json (workspaces configuration, unified scripts)
+- [ ] Create .gitignore (comprehensive ignore patterns)
+- [ ] Create README.md (setup guide, architecture overview, deployment instructions)
+- [ ] Create DEPLOYMENT.md (detailed deployment guide for all environments)
+
+### ✅ Phase 4: Minimal Testing & Validation ({{PHASE4_STATUS}})
+
+**IMPORTANT**: Keep testing minimal for MVP. Focus on "does it build?"
+
+- [ ] Run TypeScript compilation for infrastructure (cd infrastructure && npm install && npm run build)
+- [ ] Run TypeScript compilation for backend Node.js (cd backend/nodejs && npm install && npm run build)
+- [ ] Run TypeScript compilation for frontend (cd apps/web && npm install && npm run build)
+- [ ] Skip comprehensive unit tests (too time-consuming for MVP)
+- [ ] Skip integration tests (not needed for MVP)
+- [ ] Validate basic code quality (linting only)
+- [ ] Create brief test report (build success/failure only)
+
+### 🚀 Phase 5: MVP Deployment ({{PHASE5_STATUS}})
+- [ ] Bootstrap AWS CDK (cd infrastructure && npx cdk bootstrap)
+- [ ] Deploy infrastructure to dev (cd infrastructure && npx cdk deploy --all --context env=dev --require-approval never)
+- [ ] Capture deployment outputs (API URLs, CloudFront URL, Cognito details)
+- [ ] Create infrastructure/deployment-output.json with all outputs
+- [ ] Test deployed application (basic smoke test)
+- [ ] Calculate completion percentage (count TODOs in this file)
+- [ ] Create MVP_STATUS.md with completion report and live URLs
+- [ ] Update README.md with deployment information and live preview URLs
+- [ ] Update "Current Phase" in this file based on completion %
+
+---
+
+## 📋 Project Configuration
+
+### Basic Info
+- **Project Name**: {{PROJECT_NAME}}
+- **Tech Stack**: {{STACK_NAME}}
+- **Exonpro Version**: 1.0.0
+- **Created**: {{BUILD_STARTED}}
+
+### AWS Configuration
+- **Account ID**: {{AWS_ACCOUNT_ID}}
+- **Region**: {{AWS_REGION}}
+- **Profile**: {{AWS_PROFILE}}
+- **Contact Email**: {{CONTACT_EMAIL}}
+
+### Budget Constraints
+- **Dev Environment**: ${{BUDGET_DEV}}/month
+- **Stage Environment**: ${{BUDGET_STAGE}}/month
+- **Prod Environment**: ${{BUDGET_PROD}}/month
+- **Target Scale**: {{TARGET_SCALE}}
+
+---
+
+## 📚 Standards & Guidelines
+
+This project follows Exonpro universal standards. **Read these before making decisions:**
+
+- **Code Structure**: `.exon/standards/code-structure.md`
+  - Project organization, folder patterns, file naming conventions
+
+- **Hosting & Deployment**: `.exon/standards/hosting-deployment.md`
+  - AWS setup, CDK patterns, environment configuration, CI/CD
+
+- **Naming Conventions**: `.exon/standards/naming-conventions.md`
+  - Variables, functions, files, git commits, TypeScript/Python conventions
+
+- **Security Best Practices**: `.exon/standards/security-best-practices.md`
+  - Authentication, authorization, data protection, secrets management
+
+- **Tech Stack Selection**: `.exon/standards/tech-stack-selection.md`
+  - How to choose frameworks, databases, hosting platforms
+
+- **Testing Requirements**: `.exon/standards/testing-requirements.md`
+  - Coverage targets, testing strategies, test organization
+
+---
+
+## 🎨 Stack Template Details
+
+**Selected Stack**: {{STACK_NAME}}
+
+For detailed implementation guidance specific to this stack:
+
+- **Stack Overview**: `.exon/stacks/{{STACK_NAME}}/CLAUDE.md`
+  - Detailed development guidance for this specific stack
+  - Common patterns, gotchas, best practices
+
+- **Architecture Patterns**: `.exon/stacks/{{STACK_NAME}}/constitution.md`
+  - Architectural decisions, design patterns, structure rules
+
+- **Folder Structure**: `.exon/stacks/{{STACK_NAME}}/folder-structure.json`
+  - **CRITICAL**: Follow this structure EXACTLY when generating code
+  - Defines precise folder hierarchy and file organization
+
+---
+
+## ⚠️ IMPORTANT INSTRUCTIONS FOR CLAUDE
+
+### 📌 Always Do This:
+
+1. **Read this CLAUDE.md FIRST** every time you start working
+2. **Check Current TODOs** to see what's incomplete
+3. **Update TODOs as you work** - Mark [x] when completed
+4. **Update "Last Updated"** timestamp after major progress
+5. **Update "Next Action"** to guide future sessions
+6. **Add notes** under each completed TODO about decisions made
+
+### ✏️ How to Update TODOs:
+
+Use the **Edit tool** on this file:
+```
+Old: - [ ] Create infrastructure/lib/database-stack.ts
+New: - [x] Create infrastructure/lib/database-stack.ts (completed: single-table design with GSI1, GSI2)
+```
+
+### 📝 When You Complete a Phase:
+
+1. Mark all phase TODOs as [x]
+2. Change phase status from PENDING/IN PROGRESS to COMPLETED
+3. Update "Current Phase" to next phase
+4. Update "Next Action" with first task of next phase
+5. Save a phase summary in the phase section
+
+### 🔄 When You Resume:
+
+1. Read this CLAUDE.md thoroughly
+2. Check which TODOs are incomplete (still [ ])
+3. Continue from last incomplete task
+4. Update as you progress
+
+### 🚨 Critical Rules:
+
+- **Never skip TODOs** - Work sequentially through the list
+- **Always update this file** - It's the project brain
+- **Be specific in notes** - Future Claude sessions need context
+- **Follow standards** - Read files in `.exon/standards/` when unsure
+- **Check folder structure** - Use `.exon/stacks/{{STACK_NAME}}/folder-structure.json` for exact paths
+
+---
+
+## 📝 Phase Notes
+
+### Phase 0 Notes:
+(Add notes as you work on this phase)
+
+### Phase 1 Notes:
+(Add notes as you work on this phase)
+
+### Phase 2 Notes:
+(Add notes as you work on this phase)
+
+### Phase 3 Notes:
+(Add notes as you work on this phase)
+
+### Phase 4 Notes:
+(Add notes as you work on this phase)
+
+### Phase 5 Notes:
+(Add notes as you work on this phase)
+
+---
+
+**🤖 This file is the living brain of your project. Keep it updated!**

@@ -1,0 +1,56 @@
+{
+  "project": {
+    "name": "{{PROJECT_NAME}}",
+    "description": "Salesforce application built with Exonpro",
+    "version": "1.0.0"
+  },
+  "salesforce": {
+    "org_username": "{{ORG_USERNAME}}",
+    "instance_url": "https://login.salesforce.com",
+    "org_type": "developer",
+    "api_version": "61.0",
+    "org_alias": "{{ORG_ALIAS}}"
+  },
+  "deployment": {
+    "auto_deploy": false,
+    "test_level": "NoTestRun",
+    "deploy_on_save": true
+  },
+  "project_settings": {
+    "source_api_version": "61.0",
+    "namespace": "",
+    "sfdx_login_url": "https://login.salesforce.com"
+  },
+  "feature_flags": {
+    "generate_tests": false,
+    "use_security_enforced": true,
+    "bulkify_code": true,
+    "pwa_support": false
+  },
+  "notifications": {
+    "email": "{{CONTACT_EMAIL}}",
+    "slack_webhook": null
+  },
+  "metadata_scope": {
+    "include": [
+      "ApexClass",
+      "ApexTrigger",
+      "LightningComponentBundle",
+      "CustomObject",
+      "CustomField",
+      "PermissionSet",
+      "CustomTab",
+      "FlexiPage",
+      "CustomApplication"
+    ],
+    "exclude": [
+      "Profile"
+    ]
+  },
+  "demo_mode": {
+    "enabled": true,
+    "skip_tests": true,
+    "minimal_validation": true,
+    "generate_sample_data": true
+  }
+}

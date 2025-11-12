@@ -1,0 +1,131 @@
+{
+  "ask_user_exceptions": {
+    "api_error_after_max_retries": {
+      "description": "Claude API failed after 5 retry attempts",
+      "action": "Pause automation, save checkpoint, ask user to check API status or retry later",
+      "severity": "high"
+    },
+    "working_more_than_4_hours": {
+      "description": "Automation has been running for more than 4 hours continuously",
+      "action": "Ask user if they want to continue or take a break, save checkpoint",
+      "severity": "medium"
+    },
+    "unclear_requirements": {
+      "description": "Business requirements are ambiguous or missing critical information",
+      "action": "Ask specific questions to clarify requirements before proceeding",
+      "severity": "high",
+      "examples": [
+        "Missing target user information",
+        "Unclear business logic",
+        "No scale/performance requirements",
+        "Missing authentication requirements"
+      ]
+    },
+    "multiple_valid_stack_options": {
+      "description": "Multiple tech stacks are equally suitable based on requirements",
+      "action": "Present options with pros/cons, ask user to choose",
+      "severity": "medium",
+      "example": "Both serverless and Lightsail fit the requirements. Serverless offers better scaling but Lightsail is simpler and cheaper for predictable traffic."
+    },
+    "critical_security_decision": {
+      "description": "Security-related decision that requires user input",
+      "action": "Explain security implications, ask for user decision",
+      "severity": "high",
+      "examples": [
+        "Authentication method selection (OAuth vs JWT)",
+        "Data encryption requirements",
+        "Compliance requirements (HIPAA, GDPR, etc.)"
+      ]
+    },
+    "deployment_credentials_needed": {
+      "description": "Deployment requires credentials or API keys",
+      "action": "Ask user to provide credentials via secure method",
+      "severity": "high"
+    },
+    "dependency_conflict": {
+      "description": "Package dependency conflict detected",
+      "action": "Ask user to choose dependency version or resolution strategy",
+      "severity": "medium"
+    },
+    "database_migration_risk": {
+      "description": "Database migration may result in data loss",
+      "action": "Show migration plan, ask for confirmation before proceeding",
+      "severity": "high"
+    },
+    "budget_exceeded": {
+      "description": "Estimated infrastructure cost exceeds stated budget",
+      "action": "Show cost breakdown, ask user to adjust requirements or approve higher cost",
+      "severity": "high"
+    },
+    "breaking_change_detected": {
+      "description": "Proposed change would break existing functionality",
+      "action": "Explain impact, ask for confirmation or alternative approach",
+      "severity": "high"
+    }
+  },
+
+  "auto_resolve_scenarios": {
+    "minor_code_style_issue": {
+      "description": "Code style doesn't match standards but is functionally correct",
+      "action": "Auto-fix with formatter/linter",
+      "log_action": true
+    },
+    "missing_import": {
+      "description": "Import statement is missing",
+      "action": "Add import automatically",
+      "log_action": true
+    },
+    "outdated_dependency_patch": {
+      "description": "Patch version update available for dependency",
+      "action": "Update to latest patch version",
+      "log_action": true
+    },
+    "missing_type_annotation": {
+      "description": "TypeScript/Python type annotation missing",
+      "action": "Infer and add type annotation",
+      "log_action": true
+    },
+    "missing_test_file": {
+      "description": "Test file doesn't exist for new code",
+      "action": "Generate test file with basic test cases",
+      "log_action": true
+    }
+  },
+
+  "abort_scenarios": {
+    "requirements_file_missing": {
+      "description": "Business requirements file not found",
+      "action": "Abort with error message, ask user to provide requirements file"
+    },
+    "unsupported_stack_requested": {
+      "description": "User requested a tech stack not in available templates",
+      "action": "List available stacks, ask user to choose or request custom stack creation"
+    },
+    "git_repo_not_initialized": {
+      "description": "Git repository not initialized but git operations are enabled",
+      "action": "Ask user if they want to initialize git repo or disable git operations"
+    },
+    "insufficient_permissions": {
+      "description": "Automation lacks permissions to create/modify files",
+      "action": "Report permission issue, ask user to fix permissions"
+    }
+  },
+
+  "retry_scenarios": {
+    "api_rate_limit": {
+      "description": "Claude API rate limit reached",
+      "action": "Wait 60 seconds and retry",
+      "max_retries": 3
+    },
+    "network_timeout": {
+      "description": "Network request timed out",
+      "action": "Retry with exponential backoff",
+      "max_retries": 5
+    },
+    "file_lock": {
+      "description": "File is locked by another process",
+      "action": "Wait 5 seconds and retry",
+      "max_retries": 3
+    }
+  }
+}

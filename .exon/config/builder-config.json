@@ -1,0 +1,245 @@
+{
+  "builder_version": "1.0.0",
+  "claude_sdk": "typescript",
+  "automation_mode": "automated_with_exceptions",
+
+  "available_stacks": [
+    "aws-serverless-svelte-hybrid-dynamodb-nodejs-python",
+    "aws-serverless-svelte-fastapi-dynamodb-python",
+    "aws-serverless-svelte-dynamodb-nodejs",
+    "aws-lightsail-svelte-fastapi-postgres"
+  ],
+
+  "stack_selection": {
+    "mode": "automatic",
+    "criteria": [
+      "expected_scale",
+      "budget_constraints",
+      "technical_requirements",
+      "team_expertise"
+    ]
+  },
+
+  "phases": {
+    "0_configuration": {
+      "name": "Configuration & Setup",
+      "description": "Validate AWS config, check credentials, prepare environments",
+      "outputs": [
+        ".exon/config/aws-config.json",
+        ".exon/config/environments.json",
+        ".exon/logs/preflight-check.log"
+      ],
+      "duration_estimate": "5-10 minutes",
+      "requires_approval": false,
+      "tasks": [
+        "Validate aws-config.json exists and is complete",
+        "Check AWS credentials and access",
+        "Verify AWS account ID and region",
+        "Validate environment configuration (dev/stage/prod)",
+        "Check domain availability if custom domains enabled",
+        "Verify budget constraints are realistic",
+        "Create environment-specific configuration files"
+      ]
+    },
+    "1_research": {
+      "name": "Deep Research & Stack Selection",
+      "description": "Analyze business domain, research best practices, select optimal tech stack prioritizing cost-effectiveness and maintainability",
+      "outputs": [
+        "research/domain_analysis.md",
+        "research/stack_justification.md",
+        "research/competitive_analysis.md",
+        "research/best_practices.md",
+        "research/cost_analysis.md",
+        ".exon/config/project.json"
+      ],
+      "duration_estimate": "30-60 minutes",
+      "requires_approval": false,
+      "research_priorities": [
+        "Cost-effective solutions for small/medium scale",
+        "Easy to maintain and operate",
+        "Easy to enhance and scale",
+        "Minimal operational overhead",
+        "AWS-native services preferred",
+        "Serverless-first approach when possible"
+      ]
+    },
+    "2_architecture": {
+      "name": "Architecture Design",
+      "description": "Design system architecture, data models, API contracts",
+      "outputs": [
+        "architecture/system_design.md",
+        "architecture/database_schema.md",
+        "architecture/infrastructure.md",
+        "specs/api_contracts.json",
+        "specs/database_schema.md"
+      ],
+      "duration_estimate": "45-90 minutes",
+      "requires_approval": false
+    },
+    "2.5_requirements": {
+      "name": "Requirements Extraction",
+      "description": "Extract and structure requirements, create user stories, prioritize features",
+      "outputs": [
+        "specs/requirements.json",
+        "specs/features.csv",
+        "specs/user_stories.md",
+        "specs/phases/phase_1_core.json",
+        "specs/phases/phase_2_extended.json",
+        "specs/phases/phase_3_advanced.json"
+      ],
+      "duration_estimate": "30-45 minutes",
+      "requires_approval": false
+    },
+    "3_implementation": {
+      "name": "Code Generation",
+      "description": "Generate application code following selected stack template",
+      "sub_phases": [
+        "infrastructure_setup",
+        "database_models",
+        "api_endpoints",
+        "frontend_components",
+        "tests",
+        "deployment_config"
+      ],
+      "duration_estimate": "2-4 hours",
+      "requires_approval": false
+    },
+    "4_testing": {
+      "name": "Testing & Validation",
+      "description": "Run tests, validate functionality, check code quality",
+      "duration_estimate": "30-60 minutes",
+      "requires_approval": false
+    },
+    "5_deployment": {
+      "name": "Multi-Environment Deployment Setup",
+      "description": "Configure CI/CD, deploy to dev environment, prepare stage/prod deployment scripts",
+      "sub_phases": [
+        "setup_cicd_pipeline",
+        "create_environment_configs",
+        "deploy_infrastructure_dev",
+        "deploy_application_dev",
+        "verify_dev_environment",
+        "prepare_stage_prod_scripts",
+        "create_deployment_docs"
+      ],
+      "outputs": [
+        ".github/workflows/deploy-dev.yml",
+        ".github/workflows/deploy-stage.yml",
+        ".github/workflows/deploy-prod.yml",
+        "infrastructure/environments/dev.ts",
+        "infrastructure/environments/stage.ts",
+        "infrastructure/environments/prod.ts",
+        "deployment/scripts/deploy-dev.sh",
+        "deployment/scripts/deploy-stage.sh",
+        "deployment/scripts/deploy-prod.sh",
+        "deployment/DEPLOYMENT.md",
+        ".env.dev.example",
+        ".env.stage.example",
+        ".env.prod.example"
+      ],
+      "duration_estimate": "45-90 minutes",
+      "requires_approval": false,
+      "deploy_dev_immediately": true,
+      "deploy_stage_immediately": false,
+      "deploy_prod_immediately": false
+    }
+  },
+
+  "aws_configuration": {
+    "required": true,
+    "config_file": "aws-config.json",
+    "validate_on_start": true,
+    "required_fields": [
+      "project.name",
+      "aws.account_id",
+      "aws.region",
+      "environments.dev.enabled"
+    ],
+    "preflight_checks": [
+      "aws_credentials_valid",
+      "aws_account_accessible",
+      "aws_region_valid",
+      "budget_constraints_realistic"
+    ]
+  },
+
+  "environments": {
+    "dev": {
+      "required": true,
+      "deploy_immediately": true,
+      "description": "Development environment - deployed automatically after build",
+      "branch": "dev",
+      "auto_deploy_on_push": true
+    },
+    "stage": {
+      "required": false,
+      "deploy_immediately": false,
+      "description": "Staging environment - for pre-production testing",
+      "branch": "stage",
+      "auto_deploy_on_push": true
+    },
+    "prod": {
+      "required": false,
+      "deploy_immediately": false,
+      "description": "Production environment - requires manual approval",
+      "branch": "main",
+      "auto_deploy_on_push": false,
+      "require_manual_approval": true
+    }
+  },
+
+  "git_workflow": {
+    "enabled": true,
+    "main_branch": "dev",
+    "auto_commit": true,
+    "commit_frequency": "per_sub_phase",
+    "commit_message_format": "{phase}: {description}\n\n🤖 Generated with Exonpro Template Builder\n\nPhase: {phase_name}\nStack: {stack_template}\nEnvironment: {environment}"
+  },
+
+  "error_handling": {
+    "max_retries": 5,
+    "retry_delay_seconds": 10,
+    "save_checkpoint_on_error": true,
+    "notify_on_error": true
+  },
+
+  "exceptions": {
+    "ask_user_when": [
+      "api_error_after_max_retries",
+      "working_more_than_4_hours",
+      "unclear_requirements",
+      "multiple_valid_stack_options",
+      "critical_security_decision",
+      "deployment_credentials_needed"
+    ]
+  },
+
+  "state_management": {
+    "state_file": ".exon/phases/state.json",
+    "checkpoint_dir": ".exon/phases/checkpoints",
+    "auto_save_interval": "per_phase"
+  },
+
+  "logging": {
+    "detailed_log": ".exon/logs/builder_{timestamp}.log",
+    "conversation_log": ".exon/logs/conversation_{timestamp}.log",
+    "summary_log": ".exon/logs/summary_{timestamp}.log",
+    "log_level": "INFO"
+  },
+
+  "code_generation": {
+    "follow_standards": true,
+    "standards_dir": ".exon/standards",
+    "use_stack_constitution": true,
+    "include_comments": true,
+    "generate_tests": true,
+    "test_coverage_target": 75
+  },
+
+  "ai_model": {
+    "provider": "anthropic",
+    "model": "claude-sonnet-4",
+    "temperature": 0.3,
+    "max_tokens": 4000
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "project_name": "{{PROJECT_NAME}}",
+  "project_type": "{{PROJECT_TYPE}}",
+  "description": "{{DESCRIPTION}}",
+  "tech_stack": {
+    "hosting": "{{HOSTING}}",
+    "frontend": "{{FRONTEND}}",
+    "backend": "{{BACKEND}}",
+    "database": "{{DATABASE}}",
+    "language": "{{LANGUAGE}}"
+  },
+  "stack_template": "{{STACK_TEMPLATE}}",
+  "created_at": "{{CREATED_AT}}",
+  "exonpro_version": "1.0.0",
+  "metadata": {
+    "business_domain": "{{BUSINESS_DOMAIN}}",
+    "target_users": "{{TARGET_USERS}}",
+    "expected_scale": "{{EXPECTED_SCALE}}"
+  }
+}

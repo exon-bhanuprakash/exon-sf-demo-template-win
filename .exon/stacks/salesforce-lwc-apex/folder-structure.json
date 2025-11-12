@@ -1,0 +1,218 @@
+{
+  "name": "{{PROJECT_NAME}}",
+  "type": "salesforce-sfdx",
+  "structure": {
+    "force-app": {
+      "main": {
+        "default": {
+          "lwc": {
+            "description": "Lightning Web Components - Frontend UI components",
+            "readme": "Create LWC components here. Each component gets its own folder with .js, .html, .css, and .js-meta.xml files."
+          },
+          "classes": {
+            "description": "Apex classes - Backend business logic",
+            "readme": "Create Apex classes here: Services, Controllers, Selectors, Handlers, Utils, Tests."
+          },
+          "triggers": {
+            "description": "Apex triggers - Database triggers",
+            "readme": "Create triggers here. One trigger per object. Use handler pattern for logic."
+          },
+          "objects": {
+            "description": "Custom objects and fields",
+            "readme": "Define custom objects here. Each object gets a folder with object-meta.xml and fields subfolder."
+          },
+          "tabs": {
+            "description": "Custom tabs",
+            "readme": "Create custom tabs for your objects and apps."
+          },
+          "flexipages": {
+            "description": "Lightning pages",
+            "readme": "Create Lightning pages: Home pages, Record pages, App pages."
+          },
+          "applications": {
+            "description": "Lightning apps",
+            "readme": "Create Lightning apps with navigation and branding."
+          },
+          "permissionsets": {
+            "description": "Permission sets",
+            "readme": "Define permission sets for user access control."
+          },
+          "layouts": {
+            "description": "Page layouts",
+            "readme": "Create page layouts for object record pages."
+          },
+          "flows": {
+            "description": "Flows",
+            "readme": "Create flows for automation and business processes."
+          },
+          "staticresources": {
+            "description": "Static resources",
+            "readme": "Upload static files: images, CSS, JavaScript libraries, etc."
+          }
+        }
+      }
+    },
+    "config": {
+      "project-scratch-def.json": {
+        "template": "scratch-org-config",
+        "description": "Scratch org configuration (for enterprise orgs with Dev Hub)"
+      }
+    },
+    "scripts": {
+      "setup.apex": {
+        "template": "setup-script",
+        "description": "Apex script to set up demo data or configurations"
+      },
+      "deploy.sh": {
+        "template": "deploy-script",
+        "description": "Shell script for deployment automation"
+      },
+      "README.md": {
+        "template": "scripts-readme",
+        "description": "Documentation for scripts"
+      }
+    },
+    ".exon": {
+      "description": "Exonpro automation artifacts",
+      "managed_by": "exonpro",
+      "do_not_modify": true
+    },
+    "sfdx-project.json": {
+      "template": "sfdx-project-config",
+      "description": "SFDX project configuration",
+      "variables": {
+        "name": "{{PROJECT_NAME}}",
+        "sourceApiVersion": "61.0"
+      }
+    },
+    "package.json": {
+      "template": "npm-package",
+      "description": "npm package for LWC testing (optional)",
+      "optional": true
+    },
+    ".gitignore": {
+      "template": "salesforce-gitignore",
+      "description": "Git ignore file for Salesforce projects"
+    },
+    ".prettierrc": {
+      "template": "prettier-config",
+      "description": "Prettier configuration for code formatting",
+      "optional": true
+    },
+    ".eslintrc.json": {
+      "template": "eslint-config",
+      "description": "ESLint configuration for LWC",
+      "optional": true
+    },
+    "README.md": {
+      "template": "project-readme",
+      "description": "Project documentation",
+      "variables": {
+        "project_name": "{{PROJECT_NAME}}",
+        "description": "{{PROJECT_DESCRIPTION}}"
+      }
+    }
+  },
+  "templates": {
+    "sfdx-project-config": {
+      "content": {
+        "packageDirectories": [
+          {
+            "path": "force-app",
+            "default": true
+          }
+        ],
+        "name": "{{PROJECT_NAME}}",
+        "namespace": "",
+        "sfdcLoginUrl": "https://login.salesforce.com",
+        "sourceApiVersion": "61.0"
+      }
+    },
+    "scratch-org-config": {
+      "content": {
+        "orgName": "{{PROJECT_NAME}} Demo Org",
+        "edition": "Developer",
+        "features": ["EnableSetPasswordInApi"],
+        "settings": {
+          "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+          },
+          "securitySettings": {
+            "passwordPolicies": {
+              "enableSetPasswordInApi": true
+            }
+          }
+        }
+      }
+    },
+    "salesforce-gitignore": {
+      "content": "# Salesforce\n.sfdx/\n.sf/\n*.dup\n\n# Logs\n*.log\n\n# OS\n.DS_Store\nThumbs.db\n\n# IDE\n.vscode/\n.idea/\n*.swp\n\n# Dependencies\nnode_modules/\ncoverage/\n\n# Environment\n.env\n.env.local\n"
+    },
+    "setup-script": {
+      "content": "// Setup script for demo data\n// Execute: sf apex run --file scripts/setup.apex\n\n// Example: Create sample accounts\nList<Account> accounts = new List<Account>();\nfor (Integer i = 1; i <= 10; i++) {\n    accounts.add(new Account(\n        Name = 'Demo Account ' + i,\n        Industry = 'Technology'\n    ));\n}\ninsert accounts;\nSystem.debug('Created ' + accounts.size() + ' demo accounts');\n"
+    },
+    "deploy-script": {
+      "content": "#!/bin/bash\n# Deployment script\n\nset -e\n\necho \"Deploying to Salesforce...\"\n\n# Deploy source\nsf project deploy start --target-org {{ORG_ALIAS}}\n\necho \"Deployment complete!\"\n\n# Open org\nsf org open --target-org {{ORG_ALIAS}}\n"
+    },
+    "scripts-readme": {
+      "content": "# Scripts\n\n## setup.apex\nApex script to create demo data\n\n```bash\nsf apex run --file scripts/setup.apex\n```\n\n## deploy.sh\nDeployment automation script\n\n```bash\nchmod +x scripts/deploy.sh\n./scripts/deploy.sh\n```\n"
+    },
+    "project-readme": {
+      "content": "# {{PROJECT_NAME}}\n\n{{PROJECT_DESCRIPTION}}\n\n## Tech Stack\n\n- **Platform**: Salesforce\n- **Frontend**: Lightning Web Components (LWC)\n- **Backend**: Apex\n- **Database**: Salesforce Objects\n- **Deployment**: Salesforce CLI (sf)\n\n## Setup\n\n### Prerequisites\n- Salesforce CLI: `npm install -g @salesforce/cli`\n- Developer Org: https://developer.salesforce.com/signup\n\n### Login to Org\n```bash\nsf org login web --alias DevOrg\nsf config set target-org DevOrg\n```\n\n### Deploy\n```bash\nsf project deploy start\n```\n\n### Open Org\n```bash\nsf org open\n```\n\n## Development\n\n### Deploy Changes\n```bash\nsf project deploy start\n```\n\n### Retrieve Changes\n```bash\nsf project retrieve start\n```\n\n### Run Tests\n```bash\nsf apex run test --test-level RunLocalTests\n```\n\n## Project Structure\n\n```\n/\n├── force-app/main/default/\n│   ├── lwc/              # Lightning Web Components\n│   ├── classes/          # Apex classes\n│   ├── triggers/         # Apex triggers\n│   ├── objects/          # Custom objects\n│   └── ...\n├── scripts/              # Deployment and setup scripts\n├── config/               # Org configurations\n└── sfdx-project.json     # SFDX configuration\n```\n\n## Resources\n\n- [Salesforce Developer Docs](https://developer.salesforce.com/docs)\n- [LWC Documentation](https://developer.salesforce.com/docs/component-library/documentation/en/lwc)\n- [Apex Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/)\n- [Trailhead](https://trailhead.salesforce.com/)\n"
+    },
+    "prettier-config": {
+      "content": "{\n  \"printWidth\": 100,\n  \"tabWidth\": 4,\n  \"useTabs\": false,\n  \"semi\": true,\n  \"singleQuote\": true,\n  \"trailingComma\": \"none\",\n  \"bracketSpacing\": true,\n  \"arrowParens\": \"always\",\n  \"overrides\": [\n    {\n      \"files\": \"*.html\",\n      \"options\": {\n        \"parser\": \"lwc\"\n      }\n    }\n  ]\n}\n"
+    },
+    "eslint-config": {
+      "content": "{\n  \"extends\": [\"@salesforce/eslint-config-lwc/recommended\"],\n  \"rules\": {\n    \"no-console\": \"warn\",\n    \"@lwc/lwc/no-async-await\": \"off\"\n  }\n}\n"
+    },
+    "npm-package": {
+      "content": {
+        "name": "{{PROJECT_NAME_KEBAB}}",
+        "version": "1.0.0",
+        "description": "{{PROJECT_DESCRIPTION}}",
+        "scripts": {
+          "lint": "eslint **/lwc/**/*.js",
+          "test": "jest",
+          "test:watch": "jest --watch",
+          "test:coverage": "jest --coverage"
+        },
+        "devDependencies": {
+          "@salesforce/eslint-config-lwc": "^3.5.2",
+          "@salesforce/eslint-plugin-lwc": "^1.7.0",
+          "eslint": "^8.57.0",
+          "@lwc/jest-preset": "^14.0.0",
+          "jest": "^29.7.0"
+        }
+      }
+    }
+  },
+  "file_templates": {
+    "apex_class": {
+      "extension": ".cls",
+      "template": "public with sharing class {{CLASS_NAME}} {\n\n    // TODO: Implement {{CLASS_NAME}}\n\n}\n"
+    },
+    "apex_test": {
+      "extension": ".cls",
+      "template": "@isTest\nprivate class {{CLASS_NAME}}Test {\n\n    @TestSetup\n    static void setup() {\n        // Create test data\n    }\n\n    @isTest\n    static void testMethod() {\n        // Given\n\n        // When\n        Test.startTest();\n        // Call method under test\n        Test.stopTest();\n\n        // Then\n        // Assert expected outcomes\n    }\n}\n"
+    },
+    "lwc_js": {
+      "extension": ".js",
+      "template": "import { LightningElement } from 'lwc';\n\nexport default class {{COMPONENT_NAME}} extends LightningElement {\n\n    // TODO: Implement {{COMPONENT_NAME}}\n\n}\n"
+    },
+    "lwc_html": {
+      "extension": ".html",
+      "template": "<template>\n    <lightning-card title=\"{{COMPONENT_TITLE}}\">\n        <div class=\"slds-p-around_medium\">\n            <!-- Component content -->\n        </div>\n    </lightning-card>\n</template>\n"
+    },
+    "lwc_css": {
+      "extension": ".css",
+      "template": "/* {{COMPONENT_NAME}} styles */\n\n.container {\n    /* Add styles here */\n}\n"
+    }
+  },
+  "deployment_config": {
+    "org_type": "developer",
+    "login_url": "https://login.salesforce.com",
+    "api_version": "61.0",
+    "default_alias": "{{PROJECT_NAME}}Org"
+  }
+}
