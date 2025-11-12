@@ -21,11 +21,21 @@ except ImportError:
     print("Please install it with: pip install claude-agent-sdk")
     sys.exit(1)
 
-# Configure logging
+# Configure logging with UTF-8 encoding for Windows
+import io
+
+# Create a UTF-8 stream handler for Windows compatibility
+if sys.platform == 'win32':
+    # Wrap stdout with UTF-8 encoding
+    utf8_stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    stream_handler = logging.StreamHandler(utf8_stdout)
+else:
+    stream_handler = logging.StreamHandler(sys.stdout)
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(message)s',
-    handlers=[logging.StreamHandler(sys.stdout)]
+    handlers=[stream_handler]
 )
 logger = logging.getLogger(__name__)
 
@@ -103,28 +113,37 @@ class ExonproBuilder:
         logger.info(progress_msg)
         self.log_summary(progress_msg, display=True)
 
-    def _find_claude_cli(self) -> str:
-        """Find the Claude CLI executable path."""
-        import shutil
+    def _get_claude_cli_path(self) -> str:
+        """
+        Get the path to Claude CLI executable.
 
-        # Try to find claude in PATH
+        On Windows, returns path to .bat wrapper that handles .cmd execution.
+        On Unix, returns the claude binary path.
+
+        Returns:
+            String path to executable
+        """
+        import shutil
+        import os
+
+        if os.name == 'nt':  # Windows
+            # Use .bat wrapper which calls Python wrapper to execute claude.cmd
+            # .bat files ARE executable by Windows subprocess without shell=True
+            wrapper_bat = Path(__file__).parent / "claude-wrapper.bat"
+            if wrapper_bat.exists():
+                return str(wrapper_bat.absolute())
+
+            # Fallback: try to find claude directly
+            claude_path = shutil.which('claude')
+            if claude_path:
+                return claude_path
+
+        # On Unix-like systems, find claude binary
         claude_path = shutil.which('claude')
         if claude_path:
             return claude_path
 
-        # On Windows, try common npm installation locations
-        import os
-        if os.name == 'nt':  # Windows
-            # Try AppData\Roaming\npm location
-            npm_path = Path.home() / 'AppData' / 'Roaming' / 'npm'
-
-            # Check for both .cmd and .CMD extensions
-            for ext in ['claude.cmd', 'claude.CMD', 'claude']:
-                candidate = npm_path / ext
-                if candidate.exists():
-                    return str(candidate)
-
-        # Fallback to just 'claude' and let the system find it
+        # Last resort fallback
         return 'claude'
 
     def load_state(self) -> dict:
@@ -871,8 +890,9 @@ Work through CLAUDE.md TODOs systematically.
 
             full_prompt = f"{system_prompt}\n\n---\n\n{user_prompt}"
 
-            # Find Claude CLI path
-            claude_cli_path = self._find_claude_cli()
+            # Get Claude CLI path (.bat wrapper on Windows, binary on Unix)
+            claude_cli_path = self._get_claude_cli_path()
+            logger.info(f"Using Claude CLI: {claude_cli_path}")
 
             # Create options
             options = ClaudeAgentOptions(
